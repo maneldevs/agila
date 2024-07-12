@@ -1,0 +1,8 @@
+@url_base=http://localhost:8000/auth
+
+### LOGIN
+POST {{url_base}}/login
+Content-Type: application/x-www-form-urlencoded
+
+username=name
+&password=password

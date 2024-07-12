@@ -1,0 +1,10 @@
+@url_base=http://localhost:8000/users
+
+### CREATE USER
+POST {{url_base}}
+
+{
+    "username": "username1",
+    "password": "password",
+    "email": "email@example.com"
+}
