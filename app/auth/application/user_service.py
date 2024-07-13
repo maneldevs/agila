@@ -17,3 +17,6 @@ class UserService:
         command.password = password_hashed
         user = self.userRepository.create(command=command)
         return user
+
+    def readAll(self) -> list[User]:
+        return self.userRepository.fetchAll()

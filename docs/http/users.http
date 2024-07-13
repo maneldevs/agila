@@ -4,7 +4,7 @@
 POST {{url_base}}
 
 {
-    "username": "username1",
+    "username": "username2",
     "password": "password",
-    "email": "email@example.com"
+    "email": "email2@example.com"
 }

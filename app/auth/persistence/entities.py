@@ -1,7 +1,7 @@
 import uuid
 from sqlalchemy import Boolean, Column, String
 from app.auth.application.domain import User
-from app.database import Base
+from app.core.database import Base
 
 
 class UserEntity(Base):

@@ -5,7 +5,7 @@ from sqlalchemy import pool
 
 from alembic import context
 
-from app.settings import settings
+from app.core.settings import settings
 from app.auth.persistence.entities import Base as AuthBase
 
 
