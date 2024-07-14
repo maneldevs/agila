@@ -8,3 +8,7 @@ POST {{url_base}}
     "password": "password",
     "email": "email2@example.com"
 }
+
+
+### GET ALL USERS PAGINATED
+GET {{url_base}}?page=2&size=1

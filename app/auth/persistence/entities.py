@@ -13,5 +13,5 @@ class UserEntity(Base):
     email = Column(String(255), nullable=False, unique=True)
     active = Column(Boolean, nullable=False, default=True)
 
-    def toUser(self):
+    def to_user(self):
         return User(**self.__dict__)
