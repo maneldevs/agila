@@ -13,5 +13,5 @@ async def login(
     command: Annotated[OAuth2PasswordRequestForm, Depends()],
     service: Annotated[AuthService, Depends()],
 ):
-    token: str = service.authenticate()
+    token: str = service.authenticate(command.username, command.password)
     return {"access_token": token}

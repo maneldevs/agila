@@ -9,7 +9,7 @@ class AuthService:
     def __init__(self, userRepository: Annotated[UserRepository, Depends()]) -> None:
         self.userRepository = userRepository
 
-    def authenticate(self) -> str:
+    def authenticate(self, username: str, password: str) -> str:
         # TODO mmr verify user credentials
         # TODO mmr generate token
         token: str = "fake_token"

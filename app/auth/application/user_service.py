@@ -19,11 +19,11 @@ class UserService:
         user = self.user_repository.create(command=command)
         return user
 
-    def readAll(self) -> list[User]:
-        return self.user_repository.fetchAll()
+    def read_all(self) -> list[User]:
+        return self.user_repository.fetch_all()
 
-    def readAllPaginated(self, page_params: PageParams) -> list[User]:
-        return self.user_repository.fetchAllPaginated(page_params)
+    def read_all_paginated(self, page_params: PageParams) -> list[User]:
+        return self.user_repository.fetch_all_paginated(page_params)
 
-    def countAll(self) -> int:
-        return self.user_repository.countAll()
+    def count_all(self) -> int:
+        return self.user_repository.count_all()

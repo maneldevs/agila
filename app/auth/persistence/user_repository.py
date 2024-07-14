@@ -28,16 +28,17 @@ class UserRepository:
         except IntegrityError:
             raise EntityAlreadyExistsError("User already exists")
 
-    def fetchAll(self) -> list[User]:
+    def fetch_all(self) -> list[User]:
         query: Query = self.db.query(UserEntity)
         user_entities: list[UserEntity] = query.all()
         return [u.to_user() for u in user_entities]
 
-    def fetchAllPaginated(self, page_params: PageParams) -> list[User]:
+    def fetch_all_paginated(self, page_params: PageParams) -> list[User]:
         query: Query = self.db.query(UserEntity)
         query = Paginator(UserEntity).paginate_query(query=query, page_params=page_params)
         user_entities: list[UserEntity] = query.all()
         return [u.to_user() for u in user_entities]
 
-    def countAll(self) -> int:
+    def count_all(self) -> int:
         return self.db.query(UserEntity).count()
+    

@@ -16,13 +16,13 @@ async def create(command: UserCreateCommand, service: Annotated[UserService, Dep
 
 
 @router.get("/", response_model=PageResponse[UserDetailResponse])
-async def readAllPaginated(page_params: Annotated[PageParams, Depends()], service: Annotated[UserService, Depends()]):
-    total: int = service.countAll()
-    users: list[User] = service.readAllPaginated(page_params)
+async def read_all_paginated(page_params: Annotated[PageParams, Depends()], service: Annotated[UserService, Depends()]):
+    total: int = service.count_all()
+    users: list[User] = service.read_all_paginated(page_params)
     return PageResponse(page=page_params.page, size=page_params.size, total=total, content=users)
 
 
 @router.get("/index/", response_model=list[UserResponse])
-async def readAll(service: Annotated[UserService, Depends()]):
-    users: list[User] = service.readAll()
+async def read_all(service: Annotated[UserService, Depends()]):
+    users: list[User] = service.read_all()
     return users

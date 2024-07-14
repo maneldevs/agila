@@ -14,3 +14,13 @@ GET {{url_base}}/index
 
 ### GET ALL USERS PAGINATED
 GET {{url_base}}?page=1&size=10&order_field=username&direction=desc
+
+### GET ONE USER BY ID
+
+### GET ONE USER BY USERNAME
+
+### UPDATE ONE USER
+
+### DELETE ONE USER
+
+### DEACTIVATE ONE USER
