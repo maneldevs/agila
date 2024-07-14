@@ -8,7 +8,7 @@ from app.auth.persistence.entities import UserEntity
 from app.core.database import get_db
 from app.core.exceptions import EntityAlreadyExistsError
 from app.core.models import PageParams
-from app.core.utils import paginate_query
+from app.core.paginator import Paginator
 
 
 class UserRepository:
@@ -35,7 +35,7 @@ class UserRepository:
 
     def fetchAllPaginated(self, page_params: PageParams) -> list[User]:
         query: Query = self.db.query(UserEntity)
-        query = paginate_query(query=query, page_params=page_params)
+        query = Paginator(UserEntity).paginate_query(query=query, page_params=page_params)
         user_entities: list[UserEntity] = query.all()
         return [u.to_user() for u in user_entities]
 
