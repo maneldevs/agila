@@ -26,3 +26,9 @@ async def read_all_paginated(page_params: Annotated[PageParams, Depends()], serv
 async def read_all(service: Annotated[UserService, Depends()]):
     users: list[User] = service.read_all()
     return users
+
+
+@router.get("/by_username/{username}", response_model=UserDetailResponse)
+async def read_one_by_username(username: str, service: Annotated[UserService, Depends()]):
+    user: User = service.read_user_by_username(username)
+    return user

@@ -27,3 +27,6 @@ class UserService:
 
     def count_all(self) -> int:
         return self.user_repository.count_all()
+
+    def read_user_by_username(self, username: str) -> User:
+        return self.user_repository.fetch_user_by_username(username=username)

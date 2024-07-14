@@ -18,6 +18,7 @@ GET {{url_base}}?page=1&size=10&order_field=username&direction=desc
 ### GET ONE USER BY ID
 
 ### GET ONE USER BY USERNAME
+GET {{url_base}}/by_username/username1
 
 ### UPDATE ONE USER
 

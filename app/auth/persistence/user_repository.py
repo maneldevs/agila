@@ -41,4 +41,7 @@ class UserRepository:
 
     def count_all(self) -> int:
         return self.db.query(UserEntity).count()
-    
+
+    def fetch_user_by_username(self, username: str) -> User:
+        user_entity = self.db.query(UserEntity).filter(UserEntity.username == username).first()
+        return user_entity.to_user()
