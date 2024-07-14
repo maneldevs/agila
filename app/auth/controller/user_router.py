@@ -3,7 +3,7 @@ from fastapi import APIRouter, Depends
 from app.auth.application.domain import User
 from app.auth.application.models import UserCreateCommand
 from app.auth.application.user_service import UserService
-from app.auth.controller.responses import UserDetailResponse
+from app.auth.controller.responses import UserDetailResponse, UserResponse
 from app.core.models import PageParams, PageResponse
 
 router = APIRouter(prefix="/users", tags=["User"])
@@ -18,5 +18,11 @@ async def create(command: UserCreateCommand, service: Annotated[UserService, Dep
 @router.get("/", response_model=PageResponse[UserDetailResponse])
 async def readAllPaginated(page_params: Annotated[PageParams, Depends()], service: Annotated[UserService, Depends()]):
     total: int = service.countAll()
-    users: list[User] = service.readAll(page_params)
+    users: list[User] = service.readAllPaginated(page_params)
     return PageResponse(page=page_params.page, size=page_params.size, total=total, content=users)
+
+
+@router.get("/index/", response_model=list[UserResponse])
+async def readAll(service: Annotated[UserService, Depends()]):
+    users: list[User] = service.readAll()
+    return users

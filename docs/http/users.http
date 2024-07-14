@@ -9,6 +9,8 @@ POST {{url_base}}
     "email": "email2@example.com"
 }
 
+### GET ALL USERS INDEX
+GET {{url_base}}/index
 
 ### GET ALL USERS PAGINATED
-GET {{url_base}}?page=2&size=1
+GET {{url_base}}?page=1&size=10&order_field=username&direction=desc
