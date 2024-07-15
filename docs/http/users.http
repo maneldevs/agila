@@ -22,7 +22,7 @@ Authorization: Bearer {{token}}
 
 ### GET ONE USER BY USERNAME
 GET {{url_base}}/by_username/username2
-Authorization: Bearer {{token}}s
+Authorization: Bearer {{token}}
 
 ### UPDATE ONE USER
 
