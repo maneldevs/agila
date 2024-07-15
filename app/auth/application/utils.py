@@ -1,7 +1,24 @@
+from datetime import datetime, timedelta, timezone
 from passlib.context import CryptContext
+import jwt
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
-def generate_password_hash(password):
+def verify_password(password, hashed_password):
+    return pwd_context.verify(password, hashed_password)
+
+
+def get_password_hash(password):
     return pwd_context.hash(password)
+
+
+def create_access_token(data: dict, secret: str, algorithm: str, expires_delta: timedelta | None = None):
+    data_copy = data.copy()
+    if expires_delta:
+        expire = datetime.now(timezone.utc) + expires_delta
+    else:
+        expire = datetime.now(timezone.utc) + timedelta(minutes=15)
+    data_copy.update({"exp": expire})
+    encoded_jwt = jwt.encode(data_copy, secret, algorithm)
+    return encoded_jwt

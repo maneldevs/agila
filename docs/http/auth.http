@@ -4,5 +4,5 @@
 POST {{url_base}}/login
 Content-Type: application/x-www-form-urlencoded
 
-username=name
+username=username1
 &password=password
