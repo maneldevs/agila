@@ -16,7 +16,7 @@ Authorization: Bearer {{token}}
 
 ### GET ALL USERS PAGINATED
 GET {{url_base}}?page=1&size=10&order_field=username&direction=desc
-Authorization: Bearer {{token}}
+Authorization: Bearer {{token}}a
 
 ### GET ONE USER BY ID
 

@@ -15,3 +15,4 @@ class UserResponse(BaseModel):
 class UserDetailResponse(UserResponse):
     email: str
     active: bool
+    role: str

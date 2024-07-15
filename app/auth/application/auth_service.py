@@ -9,7 +9,7 @@ from app.auth.application import utils
 from app.auth.application.domain import User
 from app.auth.persistence.user_repository import UserRepository
 from app.core.settings import settings
-from app.core.exceptions import CredentialsError, TokenInvalidError
+from app.core.exceptions import CredentialsError, ForbiddenError, TokenInvalidError
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
 
@@ -31,7 +31,7 @@ class AuthService:
             if username:
                 principal = self.userRepository.fetch_user_by_username(username)
             if principal is None or not principal.active:
-                raise TokenInvalidError()
+                raise TokenInvalidError
         except ExpiredSignatureError:
             raise TokenInvalidError("Token expired")
         except InvalidTokenError:
@@ -52,3 +52,13 @@ class AuthService:
 
 def get_principal(authService: Annotated[AuthService, Depends()], token: str | None = Depends(oauth2_scheme)) -> str:
     return authService.get_principal(token)
+
+
+class Authenticator:
+    def __init__(self, allowed_roles: list[str] = []):
+        self.allowed_roles = allowed_roles
+
+    def __call__(self, principal: Annotated[User, Depends(get_principal)]) -> User:
+        if self.allowed_roles and principal.role not in self.allowed_roles:
+            raise ForbiddenError
+        return principal

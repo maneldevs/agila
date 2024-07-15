@@ -23,3 +23,8 @@ class CredentialsError(BaseError):
 class TokenInvalidError(BaseError):
     def __init__(self, message: str = "Token invalid", *args, **kwargs) -> None:
         super().__init__(message, status_code=401, *args, **kwargs)
+
+
+class ForbiddenError(BaseError):
+    def __init__(self, message: str = "Forbidden", *args, **kwargs) -> None:
+        super().__init__(message, status_code=403, *args, **kwargs)

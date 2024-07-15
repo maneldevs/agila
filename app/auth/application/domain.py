@@ -7,3 +7,4 @@ class User(BaseModel):
     password: str
     email: str
     active: bool
+    role: str = "admin"
