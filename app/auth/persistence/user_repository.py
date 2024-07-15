@@ -6,7 +6,7 @@ from app.auth.application.domain import User
 from app.auth.application.models import UserCreateCommand
 from app.auth.persistence.entities import UserEntity
 from app.core.database import get_db
-from app.core.exceptions import EntityAlreadyExistsError
+from app.core.exceptions import EntityAlreadyExistsError, EntityNotFoundError
 from app.core.models import PageParams
 from app.core.paginator import Paginator
 
@@ -44,4 +44,6 @@ class UserRepository:
 
     def fetch_user_by_username(self, username: str) -> User:
         user_entity = self.db.query(UserEntity).filter(UserEntity.username == username).first()
+        if user_entity is None:
+            raise EntityNotFoundError("User not found")
         return user_entity.to_user()
