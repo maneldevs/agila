@@ -1,7 +1,8 @@
 @url_base=http://localhost:8000/users
-
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VybmFtZTEiLCJleHAiOjE3MjExNDcxMTV9.ENc1p0tgem7z5uTTAKbJ0UJGpAnyDooACzxzl8Fsi24
 ### CREATE USER
 POST {{url_base}}
+Authorization: Bearer {{token}}
 
 {
     "username": "username5",
@@ -11,14 +12,17 @@ POST {{url_base}}
 
 ### GET ALL USERS INDEX
 GET {{url_base}}/index
+Authorization: Bearer {{token}}
 
 ### GET ALL USERS PAGINATED
 GET {{url_base}}?page=1&size=10&order_field=username&direction=desc
+Authorization: Bearer {{token}}
 
 ### GET ONE USER BY ID
 
 ### GET ONE USER BY USERNAME
 GET {{url_base}}/by_username/username2
+Authorization: Bearer {{token}}s
 
 ### UPDATE ONE USER
 

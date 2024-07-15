@@ -2,12 +2,29 @@ from datetime import timedelta
 from typing import Annotated
 
 from fastapi import Depends
+from fastapi.security import OAuth2PasswordBearer
+from jwt import ExpiredSignatureError, InvalidTokenError
 
 from app.auth.application import utils
 from app.auth.application.domain import User
 from app.auth.persistence.user_repository import UserRepository
 from app.core.settings import settings
-from app.core.exceptions import CredentialsError
+from app.core.exceptions import CredentialsError, TokenInvalidError
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
+
+
+def get_principal(token: str | None = Depends(oauth2_scheme)) -> str:
+    try:
+        payload: dict = utils.decode_token(token, settings.agila_secret_key, settings.agila_algorithm)
+        username: str | None = payload.get("sub")
+        if username is None:
+            raise TokenInvalidError()
+    except ExpiredSignatureError:
+        raise TokenInvalidError("Token expired")
+    except InvalidTokenError:
+        raise TokenInvalidError
+    return username
 
 
 class AuthService:
@@ -26,6 +43,6 @@ class AuthService:
 
     def __generate_access_token(self, username: str) -> str:
         data = {"sub": username}
-        expiration_min = timedelta(minutes=settings.agila_access_token_expire_minutes)
-        token = utils.create_access_token(data, settings.agila_secret_key, settings.agila_algorithm, expiration_min)
+        exp_min = timedelta(minutes=settings.agila_access_token_expire_minutes)
+        token = utils.create_access_token(data, settings.agila_secret_key, settings.agila_algorithm, exp_min)
         return token

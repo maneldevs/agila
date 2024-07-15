@@ -16,7 +16,7 @@ class UserService:
 
     def create(self, command: UserCreateCommand) -> User:
         try:
-            password_hashed = utils.generate_password_hash(command.password)
+            password_hashed = utils.get_password_hash(command.password)
             command.password = password_hashed
             user = self.user_repository.create(command=command)
         except EntityAlreadyExistsError as exc:

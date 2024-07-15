@@ -18,3 +18,8 @@ class EntityNotFoundError(BaseError):
 class CredentialsError(BaseError):
     def __init__(self, message: str = "Incorrect username or password", *args, **kwargs) -> None:
         super().__init__(message, status_code=401, *args, **kwargs)
+
+
+class TokenInvalidError(BaseError):
+    def __init__(self, message: str = "Token invalid", *args, **kwargs) -> None:
+        super().__init__(message, status_code=401, *args, **kwargs)
