@@ -14,27 +14,26 @@ from app.core.exceptions import CredentialsError, TokenInvalidError
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
 
 
-def get_principal(token: str | None = Depends(oauth2_scheme)) -> str:
-    try:
-        payload: dict = utils.decode_token(token, settings.agila_secret_key, settings.agila_algorithm)
-        username: str | None = payload.get("sub")
-        if username is None:
-            raise TokenInvalidError()
-    except ExpiredSignatureError:
-        raise TokenInvalidError("Token expired")
-    except InvalidTokenError:
-        raise TokenInvalidError
-    return username
-
-
 class AuthService:
 
-    def __init__(self, userRepository: Annotated[UserRepository, Depends()]) -> None:
+    def __init__(self, userRepository: Annotated[UserRepository, Depends()]):
         self.userRepository = userRepository
 
     def authenticate(self, username: str, password: str) -> str:
         self.__verify_credentials(username, password)
         return self.__generate_access_token(username)
+
+    def get_principal(self, token: str) -> str:
+        try:
+            payload: dict = utils.decode_token(token, settings.agila_secret_key, settings.agila_algorithm)
+            username: str | None = payload.get("sub")
+            if username is None:
+                raise TokenInvalidError()
+        except ExpiredSignatureError:
+            raise TokenInvalidError("Token expired")
+        except InvalidTokenError:
+            raise TokenInvalidError
+        return username
 
     def __verify_credentials(self, username: str | None, password: str) -> bool:
         user: User = self.userRepository.fetch_user_by_username(username)
@@ -46,3 +45,7 @@ class AuthService:
         exp_min = timedelta(minutes=settings.agila_access_token_expire_minutes)
         token = utils.create_access_token(data, settings.agila_secret_key, settings.agila_algorithm, exp_min)
         return token
+
+
+def get_principal(authService: Annotated[AuthService, Depends()], token: str | None = Depends(oauth2_scheme)) -> str:
+    return authService.get_principal(token)
