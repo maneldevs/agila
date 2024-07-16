@@ -5,16 +5,23 @@ from fastapi import Depends
 from app.auth.application import utils
 from app.auth.application.domain import User
 from app.auth.application.models import UserCreateCommand
+from app.auth.persistence.role_repository import RoleRepository
 from app.auth.persistence.user_repository import UserRepository
 from app.core.exceptions import EntityAlreadyExistsError, EntityNotFoundError
 from app.core.models import PageParams
 
 
 class UserService:
-    def __init__(self, user_repository: Annotated[UserRepository, Depends()]) -> None:
+    def __init__(
+        self,
+        user_repository: Annotated[UserRepository, Depends()],
+        role_repository: Annotated[RoleRepository, Depends()],
+    ) -> None:
         self.user_repository = user_repository
+        self.role_repository = role_repository
 
     def create(self, command: UserCreateCommand) -> User:
+        self.__read_role_by_id(command.role_id)
         try:
             password_hashed = utils.get_password_hash(command.password)
             command.password = password_hashed
@@ -38,3 +45,9 @@ class UserService:
         if user is None:
             raise EntityNotFoundError("User not found")
         return user
+
+    def __read_role_by_id(self, id: str):
+        role = self.role_repository.fetch_role_by_id(id)
+        if role is None:
+            raise EntityNotFoundError("Role not found")
+        return role

@@ -6,9 +6,10 @@ POST {{url_base}}
 Authorization: Bearer {{token}}
 
 {
-    "username": "username6",
+    "username": "username13",
     "password": "password",
-    "email": "email6@example.com"
+    "email": "email13@example.com",
+    "role_id": "52c981b8-2b64-4934-963e-a8dd754dd620"
 }
 
 ### GET ALL USERS INDEX

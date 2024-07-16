@@ -8,6 +8,7 @@ class RoleCreateCommand(BaseModel):
 class UserCommand(BaseModel):
     username: str
     email: EmailStr
+    role_id: str | None = None
 
 
 class UserCreateCommand(UserCommand):

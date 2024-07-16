@@ -19,7 +19,7 @@ class UserRepository:
     def create(self, command: UserCreateCommand) -> User:
         try:
             user_entity: UserEntity = UserEntity(
-                username=command.username, password=command.password, email=command.email
+                username=command.username, password=command.password, email=command.email, role_id=command.role_id
             )
             self.db.add(user_entity)
             self.db.commit()

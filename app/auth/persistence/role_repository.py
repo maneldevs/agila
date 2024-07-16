@@ -23,3 +23,10 @@ class RoleRepository:
             return role_entity.to_role()
         except IntegrityError:
             raise EntityAlreadyExistsError()
+
+    def fetch_role_by_id(self, id: str) -> Role:
+        role: Role = None
+        role_entity: RoleEntity = self.db.query(RoleEntity).filter(RoleEntity.id == id).first()
+        if role_entity is not None:
+            role = role_entity.to_role()
+        return role
