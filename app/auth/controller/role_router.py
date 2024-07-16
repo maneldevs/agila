@@ -18,3 +18,12 @@ async def create(
 ):
     role: Role = service.create(command)
     return role
+
+
+@router.get("/index/", response_model=list[RoleResponse])
+async def read_all(
+    service: Annotated[RoleService, Depends()],
+    principal: Annotated[User, Depends(Authenticator())],
+):
+    roles: list[Role] = service.read_all()
+    return roles

@@ -36,7 +36,6 @@ async def read_all(
     service: Annotated[UserService, Depends()],
     principal: Annotated[User, Depends(Authenticator())],
 ):
-    print(principal)
     users: list[User] = service.read_all()
     return users
 

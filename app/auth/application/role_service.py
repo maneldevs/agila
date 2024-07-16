@@ -20,3 +20,6 @@ class RoleService:
             exc.message = "Role already exists"
             raise exc
         return role
+
+    def read_all(self) -> list[Role]:
+        return self.role_repository.fetch_all()

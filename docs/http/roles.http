@@ -8,3 +8,7 @@ Authorization: Bearer {{token}}
 {
     "rolename": "user"
 }
+
+### GET ALL ROLES INDEX
+GET {{url_base}}/index
+Authorization: Bearer {{token}}

@@ -1,5 +1,5 @@
 from sqlalchemy.exc import IntegrityError
-from fastapi import Depends
+from fastapi import Depends, Query
 from sqlalchemy.orm import Session
 
 from app.auth.application.domain import Role
@@ -30,3 +30,8 @@ class RoleRepository:
         if role_entity is not None:
             role = role_entity.to_role()
         return role
+
+    def fetch_all(self) -> list[Role]:
+        query: Query = self.db.query(RoleEntity)
+        role_entities: list[RoleEntity] = query.all()
+        return [r.to_role() for r in role_entities]
