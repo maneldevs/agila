@@ -81,3 +81,27 @@ alembic revision --autogenerate -m "create users table"
 ```bash
 alembic upgrade head
 ```
+
+## Tests
+
+- Instal·lar pytest
+
+```bash
+pip install pytest
+```
+
+- Crear el directory tests i dins el fitxer __init__.py. Dins del directory crear els tests amb el prefix test_
+
+- Crear el fitxer de configuració pytest.ini amb el següent contingut:
+
+```ini
+[pytest]
+addopts = -p no:warnings
+```
+
+- Executar els test amb el comandament:
+
+```bash
+pytest
+```
+
