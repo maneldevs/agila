@@ -59,6 +59,6 @@ class Authenticator:
         self.allowed_roles = allowed_roles
 
     def __call__(self, principal: Annotated[User, Depends(get_principal)]) -> User:
-        if self.allowed_roles and principal.role not in self.allowed_roles:
+        if self.allowed_roles and principal.role.rolename not in self.allowed_roles:
             raise ForbiddenError
         return principal

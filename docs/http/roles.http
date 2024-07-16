@@ -1,0 +1,10 @@
+@url_base=http://localhost:8000/roles
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VybmFtZTEiLCJleHAiOjE3MjEyMTI2ODR9.-beGAFIqdFY1jIor5MFMvbi7cI7bmtU_shr1VfiUUMg
+
+### CREATE USER
+POST {{url_base}}
+Authorization: Bearer {{token}}
+
+{
+    "rolename": "user"
+}

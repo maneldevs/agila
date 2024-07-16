@@ -1,4 +1,10 @@
+from typing import Optional
 from pydantic import BaseModel
+
+
+class Role(BaseModel):
+    id: str
+    rolename: str
 
 
 class User(BaseModel):
@@ -7,4 +13,7 @@ class User(BaseModel):
     password: str
     email: str
     active: bool
-    role: str = "admin"
+    role: Optional[Role] = None
+
+    class Config:
+        orm_mode = True
