@@ -76,7 +76,7 @@ target_metadata = [AuthBase.metadata]
 alembic revision --autogenerate -m "create users table"
 ```
 
-- Exacutar la migració
+- Executar la migració
 
 ```bash
 alembic upgrade head

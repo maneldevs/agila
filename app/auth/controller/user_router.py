@@ -31,7 +31,7 @@ async def read_all_paginated(
     return PageResponse(page=page_params.page, size=page_params.size, total=total, content=users)
 
 
-@router.get("/index/", response_model=list[UserResponse])
+@router.get("/index", response_model=list[UserResponse])
 async def read_all(
     service: Annotated[UserService, Depends()],
     principal: Annotated[User, Depends(Authenticator())],

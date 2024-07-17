@@ -1,5 +1,5 @@
 @url_base=http://localhost:8000/roles
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VybmFtZTEiLCJleHAiOjE3MjEyMTI2ODR9.-beGAFIqdFY1jIor5MFMvbi7cI7bmtU_shr1VfiUUMg
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VybmFtZTIiLCJleHAiOjE3MjEzMDE5NTd9.t1zko0sCJuEz7OFJ4rpBksSllMLAPj4nskfR_lBYtTU
 
 ### CREATE USER
 POST {{url_base}}
@@ -11,4 +11,8 @@ Authorization: Bearer {{token}}
 
 ### GET ALL ROLES INDEX
 GET {{url_base}}/index
+Authorization: Bearer {{token}}
+
+### GET ONE ROLE BY ID
+GET {{url_base}}/632ab8c4-26e9-4c60-bda6-89b4eb19313b
 Authorization: Bearer {{token}}
