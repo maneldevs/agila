@@ -14,7 +14,7 @@ router = APIRouter(prefix="/users", tags=["User"])
 async def create(
     command: UserCreateCommand,
     service: Annotated[UserService, Depends()],
-    principal: Annotated[User, Depends(Authenticator(allowed_roles=["admin"]))],
+    _: Annotated[User, Depends(Authenticator(allowed_roles=["admin"]))],
 ):
     user: User = service.create(command)
     return user
@@ -24,7 +24,7 @@ async def create(
 async def read_all_paginated(
     page_params: Annotated[PageParams, Depends()],
     service: Annotated[UserService, Depends()],
-    principal: Annotated[User, Depends(Authenticator())],
+    _: Annotated[User, Depends(Authenticator())],
 ):
     total: int = service.count_all()
     users: list[User] = service.read_all_paginated(page_params)
@@ -34,7 +34,7 @@ async def read_all_paginated(
 @router.get("/index", response_model=list[UserResponse])
 async def read_all(
     service: Annotated[UserService, Depends()],
-    principal: Annotated[User, Depends(Authenticator())],
+    _: Annotated[User, Depends(Authenticator())],
 ):
     users: list[User] = service.read_all()
     return users
@@ -42,7 +42,7 @@ async def read_all(
 
 @router.get("/by_username/{username}", response_model=UserDetailResponse)
 async def read_one_by_username(
-    username: str, service: Annotated[UserService, Depends()], principal: Annotated[User, Depends(Authenticator())]
+    username: str, service: Annotated[UserService, Depends()], _: Annotated[User, Depends(Authenticator())]
 ):
     user: User = service.read_user_by_username(username)
     return user

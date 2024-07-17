@@ -29,3 +29,13 @@ class RoleService:
         if role is None:
             raise EntityNotFoundError("Role not found")
         return role
+
+    def update(self, id: str, command: RoleCreateCommand) -> Role:
+        try:
+            role = self.role_repository.update(id, command)
+            if role is None:
+                raise EntityNotFoundError("Role not found")
+        except EntityAlreadyExistsError as exc:
+            exc.message = "Role already exists"
+            raise exc
+        return role

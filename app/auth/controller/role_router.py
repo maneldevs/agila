@@ -2,7 +2,7 @@ from typing import Annotated
 from fastapi import APIRouter, Depends
 from app.auth.application.auth_service import Authenticator
 from app.auth.application.domain import Role, User
-from app.auth.application.models import RoleCreateCommand
+from app.auth.application.models import RoleCreateCommand, RoleUpdateCommand
 from app.auth.application.role_service import RoleService
 from app.auth.controller.responses import RoleResponse
 
@@ -34,4 +34,15 @@ async def read_one_by_id(
     id: str, service: Annotated[RoleService, Depends()], _: Annotated[User, Depends(Authenticator())]
 ):
     role: Role = service.read_role_by_id(id)
+    return role
+
+
+@router.put("/{id}", response_model=RoleResponse)
+async def update(
+    id: str,
+    command: RoleUpdateCommand,
+    service: Annotated[RoleService, Depends()],
+    _: Annotated[User, Depends(Authenticator())],
+):
+    role: Role = service.update(id, command)
     return role

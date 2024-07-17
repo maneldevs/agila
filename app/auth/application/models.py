@@ -1,8 +1,16 @@
 from pydantic import BaseModel, EmailStr
 
 
-class RoleCreateCommand(BaseModel):
+class RoleCommand(BaseModel):
     rolename: str
+
+
+class RoleCreateCommand(RoleCommand):
+    pass
+
+
+class RoleUpdateCommand(RoleCommand):
+    pass
 
 
 class UserCommand(BaseModel):

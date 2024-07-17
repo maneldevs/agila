@@ -16,3 +16,11 @@ Authorization: Bearer {{token}}
 ### GET ONE ROLE BY ID
 GET {{url_base}}/632ab8c4-26e9-4c60-bda6-89b4eb19313b
 Authorization: Bearer {{token}}
+
+### UPDATE ONE ROLE BY ID
+PUT {{url_base}}/632ab8c4-26e9-4c60-bda6-89b4eb19313b
+Authorization: Bearer {{token}}
+
+{
+    "rolename": "admin"
+}

@@ -11,7 +11,7 @@ class RoleEntity(Base):
     id = Column(String(255), primary_key=True, default=uuid.uuid4)
     rolename = Column(String(50), nullable=False, unique=True)
 
-    def to_role(self):
+    def to_role(self) -> Role:
         return Role(**self.__dict__)
 
 
@@ -27,7 +27,7 @@ class UserEntity(Base):
 
     role = relationship("RoleEntity")
 
-    def to_user(self):
+    def to_user(self) -> User:
         user = User(**self.__dict__)
         if self.role:
             user.role = self.role.to_role()
