@@ -1,5 +1,5 @@
 from typing import Annotated
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, status
 from app.auth.application.auth_service import Authenticator
 from app.auth.application.domain import User
 from app.auth.application.models import UserCreateCommand
@@ -10,7 +10,7 @@ from app.core.models import PageParams, PageResponse
 router = APIRouter(prefix="/users", tags=["User"])
 
 
-@router.post("/", response_model=UserDetailResponse)
+@router.post("/", response_model=UserDetailResponse, status_code=status.HTTP_201_CREATED)
 async def create(
     command: UserCreateCommand,
     service: Annotated[UserService, Depends()],

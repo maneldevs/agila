@@ -6,7 +6,7 @@ from app.auth.application.domain import Role
 from app.auth.application.models import RoleCreateCommand, RoleUpdateCommand
 from app.auth.persistence.entities import RoleEntity
 from app.core.database import get_db
-from app.core.exceptions import EntityAlreadyExistsError
+from app.core.exceptions import EntityAlreadyExistsError, EntityForeignKeyError
 
 
 class RoleRepository:
@@ -49,4 +49,16 @@ class RoleRepository:
                 role = role_entity.to_role()
         except IntegrityError:
             raise EntityAlreadyExistsError()
+        return role
+
+    def delete(self, id: str) -> None:
+        role: Role = None
+        try:
+            role_entity: RoleEntity = self.db.query(RoleEntity).filter(RoleEntity.id == id).first()
+            if role_entity is not None:
+                role = role_entity.to_role()
+                self.db.delete(role_entity)
+                self.db.commit()
+        except IntegrityError:
+            raise EntityForeignKeyError()
         return role

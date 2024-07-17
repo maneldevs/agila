@@ -5,7 +5,7 @@ from fastapi import Depends
 from app.auth.application.domain import Role
 from app.auth.application.models import RoleCreateCommand
 from app.auth.persistence.role_repository import RoleRepository
-from app.core.exceptions import EntityAlreadyExistsError, EntityNotFoundError
+from app.core.exceptions import EntityAlreadyExistsError, EntityForeignKeyError, EntityNotFoundError
 
 
 class RoleService:
@@ -39,3 +39,12 @@ class RoleService:
             exc.message = "Role already exists"
             raise exc
         return role
+
+    def delete(self, id: str) -> None:
+        try:
+            role: Role | None = self.role_repository.delete(id)
+            if role is None:
+                raise EntityNotFoundError("Role not found")
+        except EntityForeignKeyError as exc:
+            exc.message = "Role can't be deleted because of relationships"
+            raise exc

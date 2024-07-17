@@ -15,6 +15,11 @@ class EntityNotFoundError(BaseError):
         super().__init__(message, status_code=404, *args, **kwargs)
 
 
+class EntityForeignKeyError(BaseError):
+    def __init__(self, message: str = "Entity foreign key error", *args, **kwargs) -> None:
+        super().__init__(message, status_code=400, *args, **kwargs)
+
+
 class CredentialsError(BaseError):
     def __init__(self, message: str = "Incorrect username or password", *args, **kwargs) -> None:
         super().__init__(message, status_code=401, *args, **kwargs)

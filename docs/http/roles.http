@@ -1,7 +1,7 @@
 @url_base=http://localhost:8000/roles
 @token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VybmFtZTIiLCJleHAiOjE3MjEzMDE5NTd9.t1zko0sCJuEz7OFJ4rpBksSllMLAPj4nskfR_lBYtTU
 
-### CREATE USER
+### CREATE ROLE
 POST {{url_base}}
 Authorization: Bearer {{token}}
 
@@ -24,3 +24,7 @@ Authorization: Bearer {{token}}
 {
     "rolename": "admin"
 }
+
+### DELETE ONE ROLE BY ID
+DELETE {{url_base}}/52c981b8-2b64-4934-963e-a8dd754dd620
+Authorization: Bearer {{token}}

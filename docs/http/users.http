@@ -1,5 +1,5 @@
 @url_base=http://localhost:8000/users
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VybmFtZTEiLCJleHAiOjE3MjExNTMwOTd9.0M4vA7Z1DfDGT-3L0CzPgbjWCmF2U1EzH8WEwQ4d0wQ
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VybmFtZTIiLCJleHAiOjE3MjEzMjQ5MDh9.Ou0qCi-S5qGhbs_BzpHdEdGi6x83-Nz0j4o3n_ntg5U
 
 ### CREATE USER
 POST {{url_base}}

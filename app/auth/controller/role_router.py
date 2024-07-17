@@ -1,5 +1,5 @@
 from typing import Annotated
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, status
 from app.auth.application.auth_service import Authenticator
 from app.auth.application.domain import Role, User
 from app.auth.application.models import RoleCreateCommand, RoleUpdateCommand
@@ -10,11 +10,11 @@ from app.auth.controller.responses import RoleResponse
 router = APIRouter(prefix="/roles", tags=["Role"])
 
 
-@router.post("/", response_model=RoleResponse)
+@router.post("/", response_model=RoleResponse, status_code=status.HTTP_201_CREATED)
 async def create(
     command: RoleCreateCommand,
     service: Annotated[RoleService, Depends()],
-    _: Annotated[User, Depends(Authenticator(allowed_roles=["admin"]))],
+    principal: Annotated[User, Depends(Authenticator(allowed_roles=["admin"]))],
 ):
     role: Role = service.create(command)
     return role
@@ -46,3 +46,10 @@ async def update(
 ):
     role: Role = service.update(id, command)
     return role
+
+
+@router.delete("/{id}", status_code=status.HTTP_204_NO_CONTENT)
+async def delete(
+    id: str, service: Annotated[RoleService, Depends()], _: Annotated[User, Depends(Authenticator())]
+):
+    service.delete(id)
