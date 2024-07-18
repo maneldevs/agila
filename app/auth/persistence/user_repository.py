@@ -6,7 +6,7 @@ from app.auth.application.domain import User
 from app.auth.application.models import UserCreateCommand, UserUpdateCommand
 from app.auth.persistence.entities import UserEntity
 from app.core.database import get_db
-from app.core.exceptions import EntityAlreadyExistsError
+from app.core.exceptions import EntityAlreadyExistsError, EntityForeignKeyError
 from app.core.models import PageParams
 from app.core.paginator import Paginator
 
@@ -62,4 +62,16 @@ class UserRepository:
                 user = user_entity.to_user()
         except IntegrityError:
             raise EntityAlreadyExistsError()
+        return user
+
+    def delete(self, id: str) -> None:
+        user: User = None
+        try:
+            user_entity: UserEntity = self.db.query(UserEntity).filter(UserEntity.id == id).first()
+            if user_entity is not None:
+                user = user_entity.to_user()
+                self.db.delete(user_entity)
+                self.db.commit()
+        except IntegrityError:
+            raise EntityForeignKeyError()
         return user

@@ -7,7 +7,7 @@ from app.auth.application.domain import User
 from app.auth.application.models import UserCreateCommand, UserUpdateCommand
 from app.auth.persistence.role_repository import RoleRepository
 from app.auth.persistence.user_repository import UserRepository
-from app.core.exceptions import EntityAlreadyExistsError, EntityNotFoundError
+from app.core.exceptions import EntityAlreadyExistsError, EntityForeignKeyError, EntityNotFoundError
 from app.core.models import PageParams
 
 
@@ -63,3 +63,12 @@ class UserService:
             exc.message = "User already exists"
             raise exc
         return user
+
+    def delete(self, id: str) -> None:
+        try:
+            user: User | None = self.user_repository.delete(id)
+            if user is None:
+                raise EntityNotFoundError("User not found")
+        except EntityForeignKeyError as exc:
+            exc.message = "User can't be deleted because of relationships"
+            raise exc

@@ -42,7 +42,7 @@ async def update(
     id: str,
     command: RoleUpdateCommand,
     service: Annotated[RoleService, Depends()],
-    _: Annotated[User, Depends(Authenticator())],
+    _: Annotated[User, Depends(Authenticator(allowed_roles=["admin"]))],
 ):
     role: Role = service.update(id, command)
     return role
@@ -50,6 +50,8 @@ async def update(
 
 @router.delete("/{id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete(
-    id: str, service: Annotated[RoleService, Depends()], _: Annotated[User, Depends(Authenticator())]
+    id: str,
+    service: Annotated[RoleService, Depends()],
+    _: Annotated[User, Depends(Authenticator(allowed_roles=["admin"]))],
 ):
     service.delete(id)

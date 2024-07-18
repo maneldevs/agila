@@ -1,5 +1,5 @@
 @url_base=http://localhost:8000/users
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VybmFtZTIiLCJleHAiOjE3MjEzMjQ5MDh9.Ou0qCi-S5qGhbs_BzpHdEdGi6x83-Nz0j4o3n_ntg5U
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VybmFtZTIiLCJleHAiOjE3MjEzODc4Nzh9.SrmOsbCtIyBIrP3Ltdj0HtQDf7hk1YeKq2dIOVI3f0k
 
 ### CREATE USER
 POST {{url_base}}
@@ -36,6 +36,8 @@ Authorization: Bearer {{token}}
     "role_id": "632ab8c4-26e9-4c60-bda6-89b4eb19313b"
 }
 
-### DELETE ONE USER
+### DELETE ONE USER BY ID
+DELETE {{url_base}}/986c35cc-8b27-462f-a790-951cd9d73706
+Authorization: Bearer {{token}}
 
 ### DEACTIVATE ONE USER
