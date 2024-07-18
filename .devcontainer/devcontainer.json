@@ -21,7 +21,11 @@
 		"vscode": {
 			"settings": {},
 			"extensions": [
-				"ms-python.python"
+				"ms-python.python",
+				"wholroyd.jinja",
+				"WyattFerguson.jinja2-snippet-kit",
+				"ms-python.black-formatter",
+				"ms-python.flake8"
 			]
 		}
 	},

@@ -1,9 +1,7 @@
-from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse
+from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
-from fastapi.templating import Jinja2Templates
 
-from app.core.controller import auth_router, role_router, user_router
+from app.core.controller import admin_router, auth_router, role_router, user_router
 import app.shared.exception_handlers as handlers
 from app.shared.exceptions import BaseError
 
@@ -16,7 +14,7 @@ app.include_router(role_router.router)
 app.add_exception_handler(BaseError, handlers.base_handler)
 
 
-@app.get("/health")  
+@app.get("/health")
 async def read_root() -> dict:
     return {"status": "ok"}
 
@@ -26,9 +24,4 @@ async def read_root() -> dict:
 admin = FastAPI()
 app.mount("/static", StaticFiles(directory="src/resources/static"), name="static")
 app.mount("/admin", admin)
-templates = Jinja2Templates(directory="src/resources/templates")
-
-
-@admin.get("/login", response_class=HTMLResponse)
-async def admin_login(request: Request):
-    return templates.TemplateResponse(request=request, name="login.html", context={})
+admin.include_router(admin_router.router)
