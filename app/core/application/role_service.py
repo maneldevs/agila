@@ -2,10 +2,10 @@ from typing import Annotated
 
 from fastapi import Depends
 
-from app.auth.application.domain import Role
-from app.auth.application.models import RoleCreateCommand, RoleUpdateCommand
-from app.auth.persistence.role_repository import RoleRepository
-from app.core.exceptions import EntityAlreadyExistsError, EntityForeignKeyError, EntityNotFoundError
+from app.core.application.domain import Role
+from app.core.application.models import RoleCreateCommand, RoleUpdateCommand
+from app.core.persistence.role_repository import RoleRepository
+from app.shared.exceptions import EntityAlreadyExistsError, EntityForeignKeyError, EntityNotFoundError
 
 
 class RoleService:

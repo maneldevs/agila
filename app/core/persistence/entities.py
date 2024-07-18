@@ -1,8 +1,8 @@
 import uuid
 from sqlalchemy import Boolean, Column, ForeignKey, String
 from sqlalchemy.orm import relationship
-from app.auth.application.domain import Role, User
-from app.core.database import Base
+from app.core.application.domain import Role, User
+from app.shared.database import Base
 
 
 class RoleEntity(Base):

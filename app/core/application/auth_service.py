@@ -5,11 +5,11 @@ from fastapi import Depends
 from fastapi.security import OAuth2PasswordBearer
 from jwt import ExpiredSignatureError, InvalidTokenError
 
-from app.auth.application import utils
-from app.auth.application.domain import User
-from app.auth.persistence.user_repository import UserRepository
-from app.core.settings import settings
-from app.core.exceptions import CredentialsError, ForbiddenError, TokenInvalidError
+from app.core.application import utils
+from app.core.application.domain import User
+from app.core.persistence.user_repository import UserRepository
+from app.shared.settings import settings
+from app.shared.exceptions import CredentialsError, ForbiddenError, TokenInvalidError
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
 

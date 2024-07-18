@@ -1,7 +1,7 @@
 from typing import Optional
 from pydantic import BaseModel
 
-from app.auth.application.domain import Role
+from app.core.application.domain import Role
 
 
 class TokenResponse(BaseModel):

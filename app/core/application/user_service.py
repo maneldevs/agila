@@ -2,13 +2,13 @@ from typing import Annotated
 
 from fastapi import Depends
 
-from app.auth.application import utils
-from app.auth.application.domain import User
-from app.auth.application.models import UserCreateCommand, UserUpdateCommand
-from app.auth.persistence.role_repository import RoleRepository
-from app.auth.persistence.user_repository import UserRepository
-from app.core.exceptions import EntityAlreadyExistsError, EntityForeignKeyError, EntityNotFoundError
-from app.core.models import PageParams
+from app.core.application import utils
+from app.core.application.domain import User
+from app.core.application.models import UserCreateCommand, UserUpdateCommand
+from app.core.persistence.role_repository import RoleRepository
+from app.core.persistence.user_repository import UserRepository
+from app.shared.exceptions import EntityAlreadyExistsError, EntityForeignKeyError, EntityNotFoundError
+from app.shared.models import PageParams
 
 
 class UserService:

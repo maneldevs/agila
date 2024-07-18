@@ -1,11 +1,11 @@
 from typing import Annotated
 from fastapi import APIRouter, Depends, status
-from app.auth.application.auth_service import Authenticator
-from app.auth.application.domain import User
-from app.auth.application.models import UserCreateCommand, UserUpdateCommand
-from app.auth.application.user_service import UserService
-from app.auth.controller.responses import UserDetailResponse, UserResponse
-from app.core.models import PageParams, PageResponse
+from app.core.application.auth_service import Authenticator
+from app.core.application.domain import User
+from app.core.application.models import UserCreateCommand, UserUpdateCommand
+from app.core.application.user_service import UserService
+from app.core.controller.responses import UserDetailResponse, UserResponse
+from app.shared.models import PageParams, PageResponse
 
 router = APIRouter(prefix="/users", tags=["User"])
 

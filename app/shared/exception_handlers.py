@@ -1,7 +1,7 @@
 from fastapi import Request
 from fastapi.responses import JSONResponse
 
-from app.core.exceptions import BaseError
+from app.shared.exceptions import BaseError
 
 
 async def base_handler(request: Request, exc: BaseError):

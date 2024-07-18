@@ -1,10 +1,10 @@
 from typing import Annotated
 from fastapi import APIRouter, Depends, status
-from app.auth.application.auth_service import Authenticator
-from app.auth.application.domain import Role, User
-from app.auth.application.models import RoleCreateCommand, RoleUpdateCommand
-from app.auth.application.role_service import RoleService
-from app.auth.controller.responses import RoleResponse
+from app.core.application.auth_service import Authenticator
+from app.core.application.domain import Role, User
+from app.core.application.models import RoleCreateCommand, RoleUpdateCommand
+from app.core.application.role_service import RoleService
+from app.core.controller.responses import RoleResponse
 
 
 router = APIRouter(prefix="/roles", tags=["Role"])

@@ -1,8 +1,8 @@
 from typing import Generic, TypeVar
 from fastapi import Query
-from app.core.database import Base
+from app.shared.database import Base
 
-from app.core.models import DirectionEnum, PageParams
+from app.shared.models import DirectionEnum, PageParams
 
 T = TypeVar("T", bound=Base)
 

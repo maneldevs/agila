@@ -2,13 +2,13 @@ from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
 from fastapi import Depends, Query
 
-from app.auth.application.domain import User
-from app.auth.application.models import UserCreateCommand, UserUpdateCommand
-from app.auth.persistence.entities import UserEntity
-from app.core.database import get_db
-from app.core.exceptions import EntityAlreadyExistsError, EntityForeignKeyError
-from app.core.models import PageParams
-from app.core.paginator import Paginator
+from app.core.application.domain import User
+from app.core.application.models import UserCreateCommand, UserUpdateCommand
+from app.core.persistence.entities import UserEntity
+from app.shared.database import get_db
+from app.shared.exceptions import EntityAlreadyExistsError, EntityForeignKeyError
+from app.shared.models import PageParams
+from app.shared.paginator import Paginator
 
 
 class UserRepository:

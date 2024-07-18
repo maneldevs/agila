@@ -5,8 +5,8 @@ from sqlalchemy import pool
 
 from alembic import context
 
-from app.core.settings import settings
-from app.auth.persistence.entities import Base as AuthBase
+from app.shared.settings import settings
+from app.core.persistence.entities import Base as AuthBase
 
 
 DB_USERNAME = settings.agila_db_username

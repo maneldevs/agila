@@ -2,8 +2,8 @@ from typing import Annotated
 from fastapi import APIRouter, Depends
 from fastapi.security import OAuth2PasswordRequestForm
 
-from app.auth.application.auth_service import AuthService
-from app.auth.controller.responses import TokenResponse
+from app.core.application.auth_service import AuthService
+from app.core.controller.responses import TokenResponse
 
 router = APIRouter(prefix="/auth", tags=["Auth"])
 
