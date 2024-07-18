@@ -4,7 +4,7 @@ from fastapi import Depends
 
 from app.auth.application import utils
 from app.auth.application.domain import User
-from app.auth.application.models import UserCreateCommand
+from app.auth.application.models import UserCreateCommand, UserUpdateCommand
 from app.auth.persistence.role_repository import RoleRepository
 from app.auth.persistence.user_repository import UserRepository
 from app.core.exceptions import EntityAlreadyExistsError, EntityNotFoundError
@@ -51,3 +51,15 @@ class UserService:
         if role is None:
             raise EntityNotFoundError("Role not found")
         return role
+
+    def update(self, id: str, command: UserUpdateCommand) -> User:
+        try:
+            if command.role_id:
+                self.__read_role_by_id(command.role_id)
+            user = self.user_repository.update(id, command)
+            if user is None:
+                raise EntityNotFoundError("User not found")
+        except EntityAlreadyExistsError as exc:
+            exc.message = "User already exists"
+            raise exc
+        return user

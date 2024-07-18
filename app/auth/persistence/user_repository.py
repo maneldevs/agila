@@ -3,7 +3,7 @@ from sqlalchemy.exc import IntegrityError
 from fastapi import Depends, Query
 
 from app.auth.application.domain import User
-from app.auth.application.models import UserCreateCommand
+from app.auth.application.models import UserCreateCommand, UserUpdateCommand
 from app.auth.persistence.entities import UserEntity
 from app.core.database import get_db
 from app.core.exceptions import EntityAlreadyExistsError
@@ -47,4 +47,19 @@ class UserRepository:
         user_entity: UserEntity = self.db.query(UserEntity).filter(UserEntity.username == username).first()
         if user_entity is not None:
             user = user_entity.to_user()
+        return user
+
+    def update(self, id: str, command: UserUpdateCommand) -> User:
+        user: User = None
+        try:
+            user_entity: UserEntity = self.db.query(UserEntity).filter(UserEntity.id == id).first()
+            if user_entity is not None:
+                command_dict: dict = command.model_dump(exclude_unset=True)
+                for key, value in command_dict.items():
+                    setattr(user_entity, key, value)
+                self.db.commit()
+                self.db.refresh(user_entity)
+                user = user_entity.to_user()
+        except IntegrityError:
+            raise EntityAlreadyExistsError()
         return user

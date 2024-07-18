@@ -27,6 +27,14 @@ GET {{url_base}}/by_username/username1
 Authorization: Bearer {{token}}
 
 ### UPDATE ONE USER
+PUT {{url_base}}/2f431933-b76e-4ff4-853d-60b91ee0936b
+Authorization: Bearer {{token}}
+
+{
+    "username": "username_new2",
+    "email": "email_new2@example.com",
+    "role_id": "632ab8c4-26e9-4c60-bda6-89b4eb19313b"
+}
 
 ### DELETE ONE USER
 

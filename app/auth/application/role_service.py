@@ -3,7 +3,7 @@ from typing import Annotated
 from fastapi import Depends
 
 from app.auth.application.domain import Role
-from app.auth.application.models import RoleCreateCommand
+from app.auth.application.models import RoleCreateCommand, RoleUpdateCommand
 from app.auth.persistence.role_repository import RoleRepository
 from app.core.exceptions import EntityAlreadyExistsError, EntityForeignKeyError, EntityNotFoundError
 
@@ -30,7 +30,7 @@ class RoleService:
             raise EntityNotFoundError("Role not found")
         return role
 
-    def update(self, id: str, command: RoleCreateCommand) -> Role:
+    def update(self, id: str, command: RoleUpdateCommand) -> Role:
         try:
             role = self.role_repository.update(id, command)
             if role is None:

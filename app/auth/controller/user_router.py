@@ -2,7 +2,7 @@ from typing import Annotated
 from fastapi import APIRouter, Depends, status
 from app.auth.application.auth_service import Authenticator
 from app.auth.application.domain import User
-from app.auth.application.models import UserCreateCommand
+from app.auth.application.models import UserCreateCommand, UserUpdateCommand
 from app.auth.application.user_service import UserService
 from app.auth.controller.responses import UserDetailResponse, UserResponse
 from app.core.models import PageParams, PageResponse
@@ -45,4 +45,15 @@ async def read_one_by_username(
     username: str, service: Annotated[UserService, Depends()], _: Annotated[User, Depends(Authenticator())]
 ):
     user: User = service.read_user_by_username(username)
+    return user
+
+
+@router.put("/{id}", response_model=UserDetailResponse)
+async def update(
+    id: str,
+    command: UserUpdateCommand,
+    service: Annotated[UserService, Depends()],
+    _: Annotated[User, Depends(Authenticator())],
+):
+    user: User = service.update(id, command)
     return user
