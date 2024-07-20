@@ -1,5 +1,5 @@
 @url_base=http://localhost:8000/roles
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VybmFtZTIiLCJleHAiOjE3MjEzMDE5NTd9.t1zko0sCJuEz7OFJ4rpBksSllMLAPj4nskfR_lBYtTU
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VybmFtZTIiLCJleHAiOjE3MjE0OTM0Nzl9.FytTnRgm0HzjaMV7Cjm122Utdg7hU44yFsXyIyZEGiU
 
 ### CREATE ROLE
 POST {{url_base}}

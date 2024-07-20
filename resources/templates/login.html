@@ -6,24 +6,28 @@
 
 {% block content %}
 <main class="form-signin text-center">
-  <form>
+  <form method="post" action="/admin/login">
     <img class="mb-4" src="{{ url_for('static', path='/img/logo-agila.png') }}" alt="" height="100">
     <h1 class="h3 mb-3 fw-normal">AGILA</h1>
-
+    {% if message %}
+    <div class="alert alert-danger" role="alert">
+      {{message}}
+    </div>
+    {% endif %}
     <div class="form-floating">
-      <input type="email" class="form-control" id="login-username" placeholder="name@example.com">
+      <input type="text" class="form-control" id="login-username" name="username" placeholder="name@example.com">
       <label for="login-username">Username</label>
     </div>
     <div class="form-floating">
-      <input type="password" class="form-control" id="login-password" placeholder="Password">
+      <input type="password" class="form-control" id="login-password" name="password" placeholder="Password">
       <label for="login-password">Password</label>
     </div>
-    <button class="w-100 btn btn-lg btn-primary" id="login-btn">Login</button>
+    <button type="submit" class="w-100 btn btn-lg btn-primary" id="login-btn">Login</button>
     <p class="mt-5 mb-3 text-muted">&copy;2024 developed with ❤️ by Manuel Máñez</p>
   </form>
 </main>
 {% endblock content %}
 
 {% block scripts %}
-<script src="{{ url_for('static', path='/js/login.js') }}"></script>
+<!-- <script src="{{ url_for('static', path='/js/login.js') }}"></script> -->
 {% endblock scripts %}

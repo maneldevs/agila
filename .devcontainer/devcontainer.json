@@ -25,7 +25,9 @@
 				"wholroyd.jinja",
 				"WyattFerguson.jinja2-snippet-kit",
 				"ms-python.black-formatter",
-				"ms-python.flake8"
+				"ms-python.flake8",
+				"mhutchie.git-graph",
+				"humao.rest-client"
 			]
 		}
 	},

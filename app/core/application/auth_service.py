@@ -1,7 +1,7 @@
 from datetime import timedelta
 from typing import Annotated
 
-from fastapi import Depends
+from fastapi import Depends, Request
 from fastapi.security import OAuth2PasswordBearer
 from jwt import ExpiredSignatureError, InvalidTokenError
 
@@ -54,11 +54,26 @@ def get_principal(authService: Annotated[AuthService, Depends()], token: str | N
     return authService.get_principal(token)
 
 
+def get_principal_from_cookie(request: Request, authService: Annotated[AuthService, Depends()]) -> str:
+    token = request.cookies["token"]
+    return authService.get_principal(token)
+
+
 class Authenticator:
     def __init__(self, allowed_roles: list[str] = []):
         self.allowed_roles = allowed_roles
 
     def __call__(self, principal: Annotated[User, Depends(get_principal)]) -> User:
+        if self.allowed_roles and (not principal.role or principal.role.rolename not in self.allowed_roles):
+            raise ForbiddenError
+        return principal
+
+
+class AuthenticatorCookie:
+    def __init__(self, allowed_roles: list[str] = []):
+        self.allowed_roles = allowed_roles
+
+    def __call__(self, principal: Annotated[User, Depends(get_principal_from_cookie)]) -> User:
         if self.allowed_roles and (not principal.role or principal.role.rolename not in self.allowed_roles):
             raise ForbiddenError
         return principal
